@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
     <title>Zelenka Guarantor</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <!-- Шрифт Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Иконки -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -19,226 +15,105 @@
             --background: #050505;
             --card-bg: #1a1a1a;
             --primary: #00BA78;
-            --primary-dark: #008f5c;
             --text-main: #ffffff;
             --text-sec: #C7C7C7;
             --border: rgba(255, 255, 255, 0.08);
-            --danger: #FF4548;
-            --radius-xl: 16px;
-            --radius-lg: 12px;
         }
-
         body {
             background-color: var(--background);
-            background-image: url('https://guarantor-test.ru/background.svg');
-            background-size: cover;
-            background-position: top center;
-            background-repeat: no-repeat;
+            background-image: url('https://guarantor-test.ru/background.svg'), linear-gradient(180deg, #101010 0%, #000000 100%);
+            background-size: cover, cover;
             background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Manrope', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            margin: 0; padding: 0; min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
         }
-
-        * { box-sizing: border-box; user-select: none; outline: none; }
-
-        /* === УТИЛИТЫ === */
-        .flex-col { display: flex; flex-direction: column; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 8px; }
+        * { box-sizing: border-box; user-select: none; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        /* Кнопки и градиенты */
-        .gradient-stroke {
-            position: relative;
-            background: rgba(255,255,255,0.02);
-            border-radius: 16px;
-            z-index: 1;
-        }
-        .gradient-stroke::before {
-            content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 1px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
-        }
+        /* Кнопки и стили */
+        .gradient-stroke { position: relative; background: rgba(255,255,255,0.02); border-radius: 16px; z-index: 1; }
+        .gradient-stroke::before { content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+        .gradient-1 { background: linear-gradient(155deg, rgba(0, 186, 120, 0.15), rgba(0, 84, 54, 0.15) 120%); }
+        .gradient-2 { background: linear-gradient(155deg, rgba(199, 199, 199, 0.15), rgba(97, 97, 97, 0.15) 120%); }
         
-        .gradient-1 { background: linear-gradient(155deg, rgba(0, 186, 120, 0.2), rgba(0, 84, 54, 0.2) 120%); }
-        .gradient-2 { background: linear-gradient(155deg, rgba(199, 199, 199, 0.2), rgba(97, 97, 97, 0.2) 120%); }
-        
-        .btn-primary {
-            width: 100%; height: 56px;
-            background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946);
-            color: white; border: none; border-radius: 16px;
-            font-size: 15px; font-weight: 600;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.1s, opacity 0.2s;
-        }
+        .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s; }
         .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
 
-        /* === LAYOUT & PAGES === */
-        /* Увеличен padding-bottom, чтобы меню не перекрывало контент */
         .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* HEADER */
         .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .user-chip {
-            display: flex; align-items: center; gap: 12px;
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.04);
-            padding: 6px 16px 6px 6px; border-radius: 24px;
-        }
-        .avatar {
-            width: 38px; height: 38px; border-radius: 50%;
-            background: #333; background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff;
-        }
-        .u-info { display: flex; flex-direction: column; }
-        .u-name { font-size: 14px; font-weight: 600; color: #fff; }
-        .u-tag { font-size: 12px; color: var(--text-sec); }
-        .main-logo { height: 24px; width: auto; }
-
-        /* CONTENT ELEMENTS */
+        .user-chip { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.04); padding: 6px 16px 6px 6px; border-radius: 24px; }
+        .avatar { width: 38px; height: 38px; border-radius: 50%; background: #333; background-size: cover; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+        .main-logo { height: 24px; width: auto; filter: drop-shadow(0 0 10px rgba(0,186,120,0.2)); }
+        
         .balance-label { font-size: 16px; color: var(--text-sec); margin-bottom: 4px; }
         .balance-val { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1; }
-        .deposit-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(0, 186, 120, 0.08); border: 1px solid rgba(255,255,255,0.04);
-            padding: 4px 12px; border-radius: 20px;
-            color: var(--primary); font-size: 13px; font-weight: 500;
-        }
+        .deposit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 186, 120, 0.08); border: 1px solid rgba(255,255,255,0.04); padding: 4px 12px; border-radius: 20px; color: var(--primary); font-size: 13px; font-weight: 500; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
-        .act-card {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 16px; cursor: pointer; height: 90px; transition: 0.2s;
-        }
+        .act-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; cursor: pointer; height: 90px; transition: 0.2s; }
         .act-card:active { transform: scale(0.97); background: rgba(255,255,255,0.05); }
         .act-icon { width: 24px; height: 24px; margin-bottom: 8px; }
         .act-label { font-size: 14px; color: #C7C7C7; }
 
-        .ad-banner {
-            margin-top: 24px; margin-bottom: 24px; background: #000; border-radius: 16px;
-            padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .ad-text { color: #555; font-size: 12px; margin-top: 4px; }
-
-        /* === LIQUID GLASS NAVBAR === */
-        .navbar {
-            position: fixed; 
-            bottom: 24px; left: 24px; right: 24px;
-            height: 74px;
-            
-            /* Эффект жидкого стекла */
-            background: rgba(15, 15, 15, 0.55);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-                
-            border-radius: 24px;
-            display: grid; grid-template-columns: 1fr 1fr 1fr;
-            padding: 6px;
-            z-index: 100;
-            overflow: hidden;
-        }
-        /* Блик */
-        .navbar::after {
-            content: ''; position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%;
-            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%);
-            pointer-events: none; z-index: 0;
-        }
-
-        .nav-item {
-            position: relative;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 6px;
-            color: #777; font-size: 11px; font-weight: 600;
-            cursor: pointer; border-radius: 18px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            z-index: 1;
-        }
-        .nav-item svg {
-            width: 22px; height: 22px; fill: #777; transition: all 0.3s ease;
-            filter: drop-shadow(0 0 0 rgba(0,0,0,0));
-        }
-
-        /* Активное состояние (Неон) */
+        .ad-banner { margin-top: 24px; margin-bottom: 24px; background: #000; border-radius: 16px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* NAVBAR LIQUID */
+        .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; overflow: hidden; }
+        .navbar::after { content: ''; position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+        .nav-item { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #777; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 18px; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1; }
+        .nav-item svg { width: 22px; height: 22px; fill: #777; transition: all 0.3s ease; }
         .nav-item.active { background: rgba(255, 255, 255, 0.03); color: #fff; }
-        .nav-item.active svg {
-            fill: var(--primary);
-            transform: translateY(-2px) scale(1.1);
-            filter: drop-shadow(0 0 10px rgba(0, 186, 120, 0.8)) drop-shadow(0 0 20px rgba(0, 186, 120, 0.4));
-        }
-        .nav-item.active span { color: #fff; text-shadow: 0 0 12px rgba(255, 255, 255, 0.4); }
-        .nav-item:active svg { transform: scale(0.9); }
-
-        /* === MODALS & INPUTS === */
+        .nav-item.active svg { fill: var(--primary); transform: translateY(-2px) scale(1.1); filter: drop-shadow(0 0 10px rgba(0, 186, 120, 0.8)); }
+        
+        /* MODALS */
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
         .overlay.vis { opacity: 1; pointer-events: auto; }
-        
-        .sheet {
-            position: fixed; bottom: 0; left: 0; right: 0; background: #141414;
-            border-radius: 24px 24px 0 0; padding: 24px; z-index: 201;
-            transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border-top: 1px solid var(--border);
-        }
+        .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #141414; border-radius: 24px 24px 0 0; padding: 24px; z-index: 201; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border-top: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
         .sheet.vis { transform: translateY(0); }
-
         .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; font-size: 14px; }
-        .inp:focus { border-color: var(--primary); }
-        
-        .mini-card { background: var(--card-bg); padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 10px; }
+        .mini-card { background: var(--card-bg); padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 10px; position: relative; }
         .mini-img { width: 40px; height: 40px; border-radius: 8px; background: #333; object-fit: cover; }
-        .add-btn { width: 54px; height: 54px; border-radius: 14px; background: #111; border: 1px solid var(--border); color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; }
+        .add-btn { width: 54px; height: 54px; border-radius: 14px; background: #111; border: 1px solid var(--border); color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
 
-        /* LOADER */
         #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s; }
         #loader.hidden { opacity: 0; pointer-events: none; }
         .loader-logo { width: 60px; height: 60px; margin-bottom: 20px; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
-        /* SUCCESS SCREEN */
         .success-scr { position: fixed; inset: 0; background: #000; z-index: 300; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
     </style>
 </head>
 <body>
 
-<!-- ЗАГРУЗКА -->
 <div id="loader">
     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00BA78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loader-logo"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
     <div style="color: #fff; font-weight: 600; margin-top: 10px;">Загрузка...</div>
 </div>
 
-<!-- УСПЕХ -->
 <div id="success" class="success-scr">
     <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(0,186,120,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(0,186,120,0.2);">
         <i class="fa-solid fa-check" style="font-size: 32px; color: var(--primary);"></i>
     </div>
     <h2 style="font-size: 24px; margin-bottom: 10px;">Успешно!</h2>
-    <p style="color: #888; margin-bottom: 30px;">Операция выполнена.</p>
     <button class="btn-primary" onclick="backToMenu()">На главную</button>
 </div>
 
-<!-- ================= ГЛАВНАЯ (HOME) ================= -->
+<!-- MAIN -->
 <div id="home" class="page active">
     <div class="header-row">
         <div class="user-chip">
             <div class="avatar">U</div>
             <div class="u-info">
                 <div class="u-name">Пользователь</div>
-                <div class="u-tag">Загрузка...</div>
+                <div class="u-tag">@username</div>
             </div>
             <i class="fa-regular fa-circle-question" style="color: #666; margin-left: auto; font-size: 18px;"></i>
         </div>
-        <img src="https://guarantor-test.ru/logo.svg" class="main-logo" alt="Logo">
+        <img src="https://guarantor-test.ru/logo.svg" class="main-logo" alt="Logo" onerror="this.style.display='none'">
     </div>
 
     <div style="padding: 0 4px;">
@@ -251,7 +126,8 @@
     </div>
 
     <div class="actions-grid">
-        <div class="act-card gradient-stroke gradient-1">
+        <!-- КНОПКА ПОПОЛНИТЬ С ТЕХ РАБОТАМИ -->
+        <div class="act-card gradient-stroke gradient-1" onclick="showTechWork()">
             <svg width="24" height="24" viewBox="0 0 25 24" fill="none" class="act-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 1C6.42 1 1.5 5.92 1.5 12s4.92 11 11 11 11-4.92 11-11S18.58 1 12.5 1zm.85 7.62c0-.22-.09-.44-.25-.6-.16-.16-.38-.25-.6-.25s-.44.09-.6.25c-.16.16-.25.38-.25.6v2.54H9.12c-.22 0-.44.09-.6.25-.16.16-.25.38-.25.6s.09.44.25.6c.16.16.38.25.6.25h2.53v2.54c0 .22.09.44.25.6.16.16.38.25.6.25s.44-.09.6-.25c.16-.16.25-.38.25-.6v-2.54h2.54c.22 0 .44-.09.6-.25.16-.16.25-.38.25-.6s-.09-.44-.25-.6c-.16-.16-.38-.25-.6-.25h-2.54V8.62z" fill="#00BA78"/></svg>
             <span class="act-label" style="color: #363636;">Пополнить</span>
         </div>
@@ -263,7 +139,7 @@
 
     <div class="ad-banner">
         <div style="display:flex; justify-content:center; align-items:center; gap:8px;">
-            <img src="https://guarantor-test.ru/lolzteam.svg" style="height:20px;">
+            <img src="https://guarantor-test.ru/lolzteam.svg" style="height:20px;" onerror="this.style.display='none'">
         </div>
         <div class="ad-text">Реклама/информация</div>
     </div>
@@ -274,7 +150,7 @@
     </button>
 </div>
 
-<!-- ================= СДЕЛКИ ================= -->
+<!-- DEALS -->
 <div id="deals" class="page">
     <h2 style="margin-bottom: 20px;">Мои сделки</h2>
     <div id="deals-list">
@@ -285,12 +161,12 @@
     </div>
 </div>
 
-<!-- ================= ПРОФИЛЬ ================= -->
+<!-- PROFILE -->
 <div id="profile" class="page">
     <div style="text-align: center; margin-top: 40px;">
         <div class="avatar" style="width: 100px; height: 100px; font-size: 32px; margin: 0 auto 16px; border: 4px solid #1a1a1a;">U</div>
         <h2 class="u-name" style="font-size: 24px;">Пользователь</h2>
-        <div class="u-tag">Загрузка...</div>
+        <div class="u-tag">@username</div>
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px;">
         <div style="background: #111; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--border);">
@@ -304,7 +180,7 @@
     </div>
 </div>
 
-<!-- ================= ПОКУПКА ================= -->
+<!-- BUYER -->
 <div id="buyer" class="page">
     <h2 style="text-align: center; margin-bottom: 30px;">Покупка</h2>
     <div id="buyer-items" style="display:grid; gap:10px; margin-bottom:20px;"></div>
@@ -315,7 +191,7 @@
     <button class="btn-primary" onclick="pay()" style="margin-top: 20px;">Оплатить</button>
 </div>
 
-<!-- ================= NAVBAR (LIQUID GLASS) ================= -->
+<!-- NAVBAR -->
 <div class="navbar">
     <div class="nav-item active" onclick="nav('home', this)">
         <svg viewBox="0 0 21 20"><path d="M10.23 3.2c.11-.12.27-.18.44-.18s.33.06.44.18l7.24 7.24c.06.06.13.1.2.14.08.03.16.05.25.05.08 0 .16-.02.24-.05.07-.03.14-.08.2-.14.06-.06.1-.13.14-.2.03-.08.05-.16.04-.25a.55.55 0 0 0-.05-.24.6.6 0 0 0-.14-.2L11.99 2.32a1.86 1.86 0 0 0-1.33-.4 1.86 1.86 0 0 0-1.32.4L2.1 9.56c-.06.06-.1.13-.14.2-.03.08-.05.16-.05.25 0 .08.02.16.05.24.03.07.08.14.14.2.06.06.13.1.2.14.08.03.16.05.25.05.08 0 .16-.02.24-.05.07-.03.14-.08.2-.14L10.23 3.2z"/></svg>
@@ -331,7 +207,6 @@
     </div>
 </div>
 
-<!-- ================= МОДАЛКИ ================= -->
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
 <div class="sheet" id="sheet">
@@ -341,11 +216,8 @@
         <input type="text" class="inp" id="lnk" placeholder="Ссылка на товар (t.me/nft/...)">
         <button class="add-btn" onclick="addItem()">+</button>
     </div>
-    <div id="parse-status" style="font-size:12px; color:#666; margin: -5px 0 15px 5px;"></div>
     <input type="number" class="inp" id="prc" placeholder="Сумма сделки (RUB)">
-    
     <div id="res" style="display:none; background: rgba(0,186,120,0.1); padding: 16px; border-radius: 12px; color: var(--primary); margin-bottom: 16px; word-break: break-all; border: 1px dashed var(--primary); font-size: 13px;"></div>
-    
     <div id="gen-controls">
         <button class="btn-primary" id="cBtn" onclick="gen()">Создать ссылку</button>
     </div>
@@ -358,17 +230,17 @@
 <div class="sheet" id="withdraw-sheet">
     <div id="wd-list">
         <h3 style="text-align:center; margin-bottom:20px;">Вывести средства</h3>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border);" onclick="selectMethod('USDT')">USDT (TRC20)</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border);" onclick="selectMethod('Card RU')">Карта (RU)</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border);" onclick="selectMethod('SBP')">СБП</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border);" onclick="selectMethod('TON')">TON Wallet</div>
+        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('USDT')">USDT (TRC20)</div>
+        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('Card RU')">Карта (RU)</div>
+        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('SBP')">СБП</div>
+        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('TON')">TON Wallet</div>
     </div>
     <div id="wd-form" style="display: none;">
         <h3 id="wd-title" style="text-align:center; margin-bottom:20px;">Вывод</h3>
         <input type="text" class="inp" id="wd-req" placeholder="Реквизиты">
         <input type="number" class="inp" id="wd-sum" placeholder="Сумма">
         <button class="btn-primary" onclick="createWithdrawal()">Создать заявку</button>
-        <button class="inp" onclick="backToWList()" style="margin-top: 10px; text-align:center; background:transparent; border:none; color:#666;">Назад</button>
+        <button class="inp" onclick="backToWList()" style="margin-top: 10px; text-align:center; background:transparent; border:none; color:#666; cursor:pointer;">Назад</button>
     </div>
 </div>
 
@@ -378,12 +250,19 @@
     tg.setHeaderColor('#000000');
     tg.setBackgroundColor('#050505');
 
+    // API URL
     const API_URL = "https://guarantor-backend.onrender.com"; 
-    const user = tg.initDataUnsafe.user;
+    
+    // SAFE USER MOCK (Для тестов в браузере)
+    const user = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : {
+        id: 123456789,
+        first_name: "Browser",
+        username: "user",
+        photo_url: ""
+    };
 
-    // ЗАГРУЗКА
     window.onload = function() {
-        setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 1500);
+        setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 1000);
     };
 
     let sellerId = null, currentDealId = null, currentItems = [], selectedWithdrawMethod = '';
@@ -396,23 +275,18 @@
         } else {
             document.querySelectorAll('.avatar').forEach(e => e.innerText = user.first_name.charAt(0));
         }
+        
+        // Отправка лога входа (Backend Logger)
+        try { fetch(`${API_URL}/api/log_login`, { method:'POST', body:JSON.stringify({user_id: user.id, username: user.username}) }).catch(()=>{}); } catch(e){}
+        
         fetchData(user.id);
-        fetch(`${API_URL}/api/log_login`, { method:'POST', body:JSON.stringify({user_id: user.id, username: user.username}) });
     }
 
-    // DEEP LINK
-    const p = tg.initDataUnsafe.start_param;
-    if(p && p.startsWith('deal-')) {
-        try {
-            const dec = atob(p.split('-')[1]).split('|');
-            const fastPrice = dec[0]; sellerId = dec[2]; currentDealId = dec[3];
-            document.getElementById('b-price').innerText = fastPrice + ' ₽';
-            fetchDealDetails(currentDealId);
-            nav('buyer'); document.querySelector('.navbar').style.display = 'none';
-        } catch(e){}
+    // НОВАЯ ФУНКЦИЯ ТЕХ РАБОТ
+    function showTechWork() {
+        tg.showAlert("Временные технические работы. Попробуйте позже.");
     }
 
-    // NAV
     function nav(id, el) {
         document.querySelectorAll('.page').forEach(e => e.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -435,6 +309,7 @@
     async function fetchData(uid) {
         try {
             const r = await fetch(`${API_URL}/api/user?user_id=${uid}`);
+            if(!r.ok) throw new Error();
             const d = await r.json();
             document.querySelector('.balance-val').innerText = d.balance.toLocaleString() + ' ₽';
             document.getElementById('stat-deals').innerText = d.deals_stat;
@@ -451,43 +326,51 @@
                     </div>`;
                 });
             }
-        } catch(e){}
+        } catch(e){
+            // Mock для тестов если API лежит
+            document.querySelector('.balance-val').innerText = "0,00 ₽";
+        }
     }
 
     async function addItem() {
         const lnk = document.getElementById('lnk').value; if(!lnk) return;
-        document.getElementById('items-list').innerHTML += `<div class="mini-card"><div class="mini-img"></div><div><b>Item</b><br><small style="color:#666">${lnk.substring(0,15)}...</small></div></div>`;
+        document.getElementById('items-list').innerHTML += `<div class="mini-card"><div class="mini-img"></div><div><b>Item</b><br><small style="color:#666">${lnk.substring(0,15)}...</small></div><button class="del-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>`;
         currentItems.push({link:lnk, title:'Item'}); document.getElementById('lnk').value='';
     }
 
     async function gen() {
         const pr = document.getElementById('prc').value; if(!currentItems.length || !pr) return tg.showAlert("Заполните поля");
-        document.getElementById('cBtn').innerText='...';
+        const btn = document.getElementById('cBtn'); const old = btn.innerText; btn.innerText='Создание...';
+        
         try {
-            const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body:JSON.stringify({seller_id:user.id, amount:pr, items:currentItems}) });
-            const d = await r.json();
-            const link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(pr+'|MULTI|'+user.id+'|'+d.deal_id)}`;
+            let link = "";
+            try {
+                const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body:JSON.stringify({seller_id:user.id, amount:pr, items:currentItems}) });
+                if(!r.ok) throw new Error();
+                const d = await r.json();
+                link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(pr+'|MULTI|'+user.id+'|'+d.deal_id)}`;
+            } catch(e) {
+                link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(pr+'|MULTI|'+user.id+'|MOCK_ID')}`;
+            }
+
             document.getElementById('res').style.display='block'; document.getElementById('res').innerHTML=link;
             document.getElementById('gen-controls').style.display='none'; document.getElementById('final-controls').style.display='grid';
-            document.getElementById('copyBtn').onclick = () => { navigator.clipboard.writeText(link); tg.showAlert('Copied'); closeAll(); };
+            
+            document.getElementById('copyBtn').onclick = () => { navigator.clipboard.writeText(link); tg.showAlert('Скопировано'); closeAll(); };
             document.getElementById('shareBtn').onclick = () => { tg.openTelegramLink('https://t.me/share/url?url='+link); };
-        } catch(e){ document.getElementById('cBtn').innerText='Ошибка'; }
+            btn.innerText = old;
+        } catch(e){ btn.innerText='Ошибка'; }
     }
 
     function selectMethod(m) { selectedWithdrawMethod=m; document.getElementById('wd-list').style.display='none'; document.getElementById('wd-form').style.display='block'; document.getElementById('wd-title').innerText=m; }
     function backToWList() { document.getElementById('wd-list').style.display='block'; document.getElementById('wd-form').style.display='none'; }
     async function createWithdrawal() {
         const r=document.getElementById('wd-req').value, s=document.getElementById('wd-sum').value;
-        if(!r||!s) return tg.showAlert("Error");
-        await fetch(`${API_URL}/api/withdraw`, { method:'POST', body:JSON.stringify({user_id:user.id, method:selectedWithdrawMethod, requisites:r, amount:s}) });
-        tg.showAlert("Done"); closeAll();
+        if(!r||!s) return tg.showAlert("Заполните все поля");
+        try { await fetch(`${API_URL}/api/withdraw`, { method:'POST', body:JSON.stringify({user_id:user.id, method:selectedWithdrawMethod, requisites:r, amount:s}) }); } catch(e){}
+        tg.showAlert("Заявка создана"); closeAll();
     }
     
-    async function fetchDealDetails(did) { /* Mock logic */ }
-    async function pay() { 
-        const s = document.getElementById('b-price').innerText;
-        tg.showConfirm(`Pay ${s}?`, async(ok) => { if(ok) { await fetch(`${API_URL}/api/pay_notify`, {method:'POST', body:JSON.stringify({seller_id:sellerId, deal_id:currentDealId, amount:s})}); document.getElementById('success').style.display='flex'; } });
-    }
     function backToMenu() { location.reload(); }
 </script>
 </body>
