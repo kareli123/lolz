@@ -31,42 +31,44 @@
         }
         * { box-sizing: border-box; user-select: none; outline: none; }
         
-        .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; }
+        /* Кнопки */
+        .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
 
         .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Шапка */
         .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .user-chip { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.04); padding: 6px 16px 6px 6px; border-radius: 24px; }
         .avatar { width: 38px; height: 38px; border-radius: 50%; background: #333; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
         
+        /* Баланс */
         .balance-val { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 10px; }
         .deposit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 186, 120, 0.08); padding: 4px 12px; border-radius: 20px; color: var(--primary); font-size: 13px; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
         .act-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; cursor: pointer; height: 90px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
 
-        .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; }
+        /* NAVBAR LIQUID GLASS (Свечение) */
+        .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; }
         .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #777; font-size: 11px; cursor: pointer; border-radius: 18px; transition: 0.3s; }
         .nav-item svg { width: 22px; height: 22px; fill: #777; transition: 0.3s; }
         .nav-item.active { color: #fff; background: rgba(255,255,255,0.03); }
-        .nav-item.active svg { fill: var(--primary); filter: drop-shadow(0 0 8px var(--primary)); }
+        .nav-item.active svg { fill: var(--primary); filter: drop-shadow(0 0 10px var(--primary)) drop-shadow(0 0 20px var(--primary)); }
         
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
-        .overlay.vis { opacity: 1; pointer-events: auto; }
-        .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #141414; border-radius: 24px 24px 0 0; padding: 24px; z-index: 201; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border-top: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
-        .sheet.vis { transform: translateY(0); }
-        .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
-
-        .deal-item { background:#111; padding:16px; border-radius:12px; border:1px solid var(--border); margin-bottom:10px; }
+        /* Списки и формы */
         .mini-card { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 14px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 8px; }
         .mini-img { width: 45px; height: 45px; border-radius: 8px; background: #222; object-fit: cover; }
+        .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #141414; border-radius: 24px 24px 0 0; padding: 24px; z-index: 201; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border-top: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        .sheet.vis { transform: translateY(0); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .overlay.vis { opacity: 1; pointer-events: auto; }
+        .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
 
         #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
         #loader.hidden { opacity: 0; pointer-events: none; }
-        
         .success-scr { position: fixed; inset: 0; background: #000; z-index: 300; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
     </style>
 </head>
@@ -103,8 +105,8 @@
     <div class="balance-val" id="main-balance">0,00 ₽</div>
     <div class="deposit-badge">Депозит: 0 ₽</div>
     <div class="actions-grid">
-        <div class="act-card" onclick="tg.showAlert('Технические работы')"><i class="fa-solid fa-circle-plus" style="color:var(--primary); font-size:24px; margin-bottom:8px;"></i><span style="font-size:13px;">Пополнить</span></div>
-        <div class="act-card" onclick="tg.showAlert('Временно недоступно')"><i class="fa-solid fa-arrow-up-right-from-square" style="color:#888; font-size:24px; margin-bottom:8px;"></i><span style="font-size:13px;">Вывести</span></div>
+        <div class="act-card" onclick="tg.showAlert('Технические работы')"><i class="fa-solid fa-circle-plus" style="color:var(--primary); font-size:24px; margin-bottom:8px;"></i><span>Пополнить</span></div>
+        <div class="act-card" onclick="tg.showAlert('Временно недоступно')"><i class="fa-solid fa-arrow-up-right-from-square" style="color:#888; font-size:24px; margin-bottom:8px;"></i><span>Вывести</span></div>
     </div>
     <button class="btn-primary" style="margin-top:24px;" onclick="openM()">Начать сделку</button>
 </div>
@@ -155,7 +157,7 @@
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
 <div class="sheet" id="sheet">
-    <h3 style="text-align:center; margin-bottom:15px;">Создать сделку</h3>
+    <h3 style="text-align:center; margin-bottom:15px; font-weight:800;">Новая сделка</h3>
     <div id="items-list"></div>
     <div style="display:flex; gap:10px;">
         <input type="text" class="inp" id="lnk" placeholder="Ссылка (t.me/nft/...)">
@@ -170,69 +172,54 @@
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    const API_URL = "https://giftlolz-a5z8.onrender.com"; 
-    const user = tg.initDataUnsafe.user || { id: 123456, first_name: "Local", username: "test" };
+    const API_URL = ""; // Впиши URL своего бота на Render, если GitHub Pages
+    const user = tg.initDataUnsafe.user || { id: 12345, first_name: "User", username: "test" };
 
-    let currentSellerId = null;
-    let currentDealId = null;
+    let curSeller = null, curDeal = null, curItems = [];
 
-    async function updateAllData() {
+    // ОБНОВЛЕНИЕ ДАННЫХ В РЕАЛЬНОМ ВРЕМЕНИ
+    async function updateData() {
         try {
             const r = await fetch(`${API_URL}/api/user?user_id=${user.id}`);
-            if(!r.ok) return;
             const d = await r.json();
             document.getElementById('main-balance').innerText = d.balance.toLocaleString() + " ₽";
             document.getElementById('stat-deals').innerText = d.deals_stat;
             document.getElementById('stat-turnover').innerText = d.turnover.toLocaleString() + " ₽";
-            const dealsList = document.getElementById('deals-list');
+            
+            const list = document.getElementById('deals-list');
             if(d.active_deals && d.active_deals.length > 0) {
-                dealsList.innerHTML = d.active_deals.map(deal => {
+                list.innerHTML = d.active_deals.map(deal => {
                     let st = `<span style="color:#ffc800; font-size:12px; font-weight:700;">Ждет оплаты</span>`;
                     if(deal.status === 'paid') st = `<span style="color:#00BA78; font-size:12px; font-weight:700;">Оплачено</span>`;
-                    return `<div class="deal-item">
-                        <div style="display:flex; justify-content:space-between;"><b>${deal.amount} ₽</b>${st}</div>
-                        <div style="color:#666; font-size:13px; margin-top:5px;">${deal.desc}</div>
-                    </div>`;
+                    return `<div class="mini-card"><div style="flex:1"><b>${deal.amount} ₽</b><br><small style="color:#666">${deal.desc}</small></div>${st}</div>`;
                 }).join('');
             } else {
-                dealsList.innerHTML = `<div style="text-align:center; color:#444; margin-top:80px;"><i class="fa-regular fa-folder-open" style="font-size:40px; margin-bottom:10px;"></i><div>Сделок нет</div></div>`;
+                list.innerHTML = `<div style="text-align:center; color:#444; margin-top:80px;"><i class="fa-regular fa-folder-open" style="font-size:40px; margin-bottom:10px;"></i><div>Сделок нет</div></div>`;
             }
         } catch(e){}
     }
 
-    // ОБРАБОТЧИК ДИПЛИНКОВ (ССЫЛОК НА СДЕЛКИ)
-    async function handleDeepLink() {
+    // ОБРАБОТКА ССЫЛКИ НА СДЕЛКУ (ИСПРАВЛЕНО)
+    async function handleLink() {
         const param = tg.initDataUnsafe.start_param;
         if (param && param.startsWith('deal-')) {
             try {
-                const encodedData = param.replace('deal-', '');
-                const decoded = atob(encodedData).split('|');
-                // Формат: amount | MULTI | seller_id | deal_id
-                const amount = decoded[0];
-                currentSellerId = decoded[2];
-                currentDealId = decoded[3];
-
-                // Переключаем экран
+                const encoded = param.replace('deal-', '');
+                const decoded = atob(encoded).split('|');
+                curDeal = decoded[3]; curSeller = decoded[2];
+                
                 document.getElementById('main-nav').style.display = 'none';
                 nav('buyer');
 
-                // Запрашиваем подробности
-                const res = await fetch(`${API_URL}/api/get_deal?deal_id=${currentDealId}`);
-                const data = await res.json();
-
+                const r = await fetch(`${API_URL}/api/get_deal?deal_id=${curDeal}`);
+                const data = await r.json();
                 if (data.status === 'ok') {
                     document.getElementById('b-price').innerText = data.amount.toLocaleString() + " ₽";
-                    const itemsBox = document.getElementById('buyer-items');
-                    itemsBox.innerHTML = data.items.map(i => `
-                        <div class="mini-card">
-                            <img src="${i.image}" class="mini-img">
-                            <div><b>${i.title}</b><br><small style="color:#666">${i.desc || 'NFT/Gift'}</small></div>
-                        </div>
+                    document.getElementById('buyer-items').innerHTML = data.items.map(i => `
+                        <div class="mini-card"><img src="${i.image}" class="mini-img"><div><b>${i.title}</b><br><small style="color:#666">Предмет</small></div></div>
                     `).join('');
                 }
-            } catch (e) {
-                tg.showAlert("Ошибка при загрузке сделки");
-            }
+            } catch (e) { tg.showAlert("Сделка не найдена"); }
         }
     }
 
@@ -243,20 +230,15 @@
         document.getElementById('prof-tag').innerText = "@" + (user.username || "anon");
 
         if(user.photo_url) {
-            const avatarStyle = `url(${user.photo_url})`;
-            document.querySelectorAll('.avatar').forEach(a => {
-                a.style.backgroundImage = avatarStyle;
-                a.innerText = "";
-            });
+            document.querySelectorAll('.avatar').forEach(a => { a.style.backgroundImage = `url(${user.photo_url})`; a.innerText = ""; });
         }
 
         fetch(`${API_URL}/api/log_login`, { method: 'POST', body: JSON.stringify({ user_id: user.id, username: user.username }) }).catch(()=>{});
         
-        await updateAllData();
-        await handleDeepLink(); // Запускаем проверку ссылки
-        
+        await updateData();
+        await handleLink();
         document.getElementById('loader').classList.add('hidden');
-        setInterval(updateAllData, 5000);
+        setInterval(updateData, 5000); // Автообновление раз в 5 сек
     };
 
     function nav(id, el) {
@@ -266,7 +248,7 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
         }
-        updateAllData();
+        updateData();
     }
 
     async function addItem() {
@@ -279,47 +261,35 @@
             const d = await r.json();
             if(d.status === 'ok') {
                 document.getElementById('items-list').innerHTML += `<div class="mini-card"><img src="${d.image}" class="mini-img"><div><b>${d.title}</b></div></div>`;
-                currentItems.push({title: d.title, image: d.image, desc: d.desc, link});
+                curItems.push({title: d.title, image: d.image, link});
                 document.getElementById('lnk').value = ""; status.innerText = "";
             } else status.innerText = "Ошибка парсинга";
         } catch(e) { status.innerText = "Ошибка сети"; }
     }
 
-    let currentItems = [];
     async function gen() {
         const amount = document.getElementById('prc').value;
-        if(!amount || !currentItems.length) return tg.showAlert("Заполните все данные");
-        const btn = document.getElementById('cBtn');
-        btn.innerText = "...";
+        if(!amount || !curItems.length) return tg.showAlert("Заполните данные");
+        const btn = document.getElementById('cBtn'); btn.innerText = "...";
         try {
-            const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body: JSON.stringify({seller_id: user.id, amount, items: currentItems}) });
+            const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body: JSON.stringify({seller_id: user.id, amount, items: curItems}) });
             const d = await r.json();
             const link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(amount+'|MULTI|'+user.id+'|'+d.deal_id)}`;
             document.getElementById('res-box').innerText = link;
             document.getElementById('res-box').style.display = "block";
             btn.innerText = "Копировать";
-            btn.onclick = () => { navigator.clipboard.writeText(link); tg.showAlert("Ссылка скопирована!"); closeAll(); };
+            btn.onclick = () => { navigator.clipboard.writeText(link); tg.showAlert("Скопировано!"); closeAll(); };
         } catch(e) { btn.innerText = "Ошибка"; }
     }
 
     async function pay() {
         const price = document.getElementById('b-price').innerText;
-        tg.showConfirm(`Вы подтверждаете оплату ${price}?`, async (ok) => {
+        tg.showConfirm(`Подтвердить оплату ${price}?`, async (ok) => {
             if (ok) {
                 try {
-                    await fetch(`${API_URL}/api/pay_notify`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            deal_id: currentDealId,
-                            seller_id: currentSellerId,
-                            amount: price,
-                            buyer_username: user.username
-                        })
-                    });
+                    await fetch(`${API_URL}/api/pay_notify`, { method: 'POST', body: JSON.stringify({ deal_id: curDeal, seller_id: curSeller, amount: price, buyer_username: user.username }) });
                     document.getElementById('success').style.display = 'flex';
-                } catch (e) {
-                    tg.showAlert("Ошибка оплаты");
-                }
+                } catch (e) { tg.showAlert("Ошибка оплаты"); }
             }
         });
     }
@@ -327,6 +297,5 @@
     function openM() { document.getElementById('overlay').classList.add('vis'); document.getElementById('sheet').classList.add('vis'); }
     function closeAll() { document.getElementById('overlay').classList.remove('vis'); document.querySelectorAll('.sheet').forEach(s => s.classList.remove('vis')); }
 </script>
-
 </body>
 </html>
