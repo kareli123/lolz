@@ -29,15 +29,9 @@
             margin: 0; padding: 0; min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
         }
-        * { box-sizing: border-box; user-select: none; outline: none; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; user-select: none; outline: none; }
         
-        /* Кнопки и стили */
-        .gradient-stroke { position: relative; background: rgba(255,255,255,0.02); border-radius: 16px; z-index: 1; }
-        .gradient-stroke::before { content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
-        .gradient-1 { background: linear-gradient(155deg, rgba(0, 186, 120, 0.15), rgba(0, 84, 54, 0.15) 120%); }
-        .gradient-2 { background: linear-gradient(155deg, rgba(199, 199, 199, 0.15), rgba(97, 97, 97, 0.15) 120%); }
-        
-        .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s; }
+        .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; }
         .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
 
         .page { display: none; padding: 20px; padding-bottom: 120px; animation: fadeIn 0.3s ease; }
@@ -47,331 +41,245 @@
         .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .user-chip { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.04); padding: 6px 16px 6px 6px; border-radius: 24px; }
         .avatar { width: 38px; height: 38px; border-radius: 50%; background: #333; background-size: cover; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
-        .main-logo { height: 24px; width: auto; filter: drop-shadow(0 0 10px rgba(0,186,120,0.2)); }
         
-        .balance-label { font-size: 16px; color: var(--text-sec); margin-bottom: 4px; }
-        .balance-val { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1; }
-        .deposit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 186, 120, 0.08); border: 1px solid rgba(255,255,255,0.04); padding: 4px 12px; border-radius: 20px; color: var(--primary); font-size: 13px; font-weight: 500; }
+        .balance-val { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+        .deposit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 186, 120, 0.08); padding: 4px 12px; border-radius: 20px; color: var(--primary); font-size: 13px; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
-        .act-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; cursor: pointer; height: 90px; transition: 0.2s; }
-        .act-card:active { transform: scale(0.97); background: rgba(255,255,255,0.05); }
-        .act-icon { width: 24px; height: 24px; margin-bottom: 8px; }
-        .act-label { font-size: 14px; color: #C7C7C7; }
+        .act-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; cursor: pointer; height: 90px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
 
-        .ad-banner { margin-top: 24px; margin-bottom: 24px; background: #000; border-radius: 16px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        
-        /* NAVBAR LIQUID */
-        .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; overflow: hidden; }
-        .navbar::after { content: ''; position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-        .nav-item { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #777; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 18px; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1; }
-        .nav-item svg { width: 22px; height: 22px; fill: #777; transition: all 0.3s ease; }
-        .nav-item.active { background: rgba(255, 255, 255, 0.03); color: #fff; }
-        .nav-item.active svg { fill: var(--primary); transform: translateY(-2px) scale(1.1); filter: drop-shadow(0 0 10px rgba(0, 186, 120, 0.8)); }
+        /* NAVBAR LIQUID GLASS */
+        .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.55); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #777; font-size: 11px; cursor: pointer; border-radius: 18px; transition: 0.3s; }
+        .nav-item svg { width: 22px; height: 22px; fill: #777; }
+        .nav-item.active { color: #fff; background: rgba(255,255,255,0.03); }
+        .nav-item.active svg { fill: var(--primary); filter: drop-shadow(0 0 8px var(--primary)); }
         
         /* MODALS */
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
         .overlay.vis { opacity: 1; pointer-events: auto; }
         .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #141414; border-radius: 24px 24px 0 0; padding: 24px; z-index: 201; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border-top: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
         .sheet.vis { transform: translateY(0); }
-        .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; font-size: 14px; }
-        .mini-card { background: var(--card-bg); padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 10px; position: relative; }
-        .mini-img { width: 40px; height: 40px; border-radius: 8px; background: #333; object-fit: cover; }
-        .add-btn { width: 54px; height: 54px; border-radius: 14px; background: #111; border: 1px solid var(--border); color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+        .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
 
-        #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s; }
+        .mini-card { background: #1a1a1a; padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 10px; position: relative; }
+        .mini-img { width: 40px; height: 40px; border-radius: 8px; background: #333; object-fit: cover; }
+
+        #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
         #loader.hidden { opacity: 0; pointer-events: none; }
-        .loader-logo { width: 60px; height: 60px; margin-bottom: 20px; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        .success-scr { position: fixed; inset: 0; background: #000; z-index: 300; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
     </style>
 </head>
 <body>
 
 <div id="loader">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00BA78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="loader-logo"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
-    <div style="color: #fff; font-weight: 600; margin-top: 10px;">Загрузка...</div>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00BA78" stroke-width="2" style="animation: spin 1s infinite linear;"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
 </div>
 
-<div id="success" class="success-scr">
-    <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(0,186,120,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(0,186,120,0.2);">
-        <i class="fa-solid fa-check" style="font-size: 32px; color: var(--primary);"></i>
-    </div>
-    <h2 style="font-size: 24px; margin-bottom: 10px;">Успешно!</h2>
-    <button class="btn-primary" onclick="backToMenu()">На главную</button>
-</div>
-
-<!-- MAIN -->
+<!-- HOME PAGE -->
 <div id="home" class="page active">
     <div class="header-row">
         <div class="user-chip">
-            <div class="avatar">U</div>
+            <div class="avatar" id="user-avatar">U</div>
             <div class="u-info">
-                <div class="u-name">Пользователь</div>
-                <div class="u-tag">@username</div>
+                <div class="u-name" id="user-name">Загрузка...</div>
+                <div class="u-tag" id="user-tag">@username</div>
             </div>
-            <i class="fa-regular fa-circle-question" style="color: #666; margin-left: auto; font-size: 18px;"></i>
         </div>
-        <img src="https://guarantor-test.ru/logo.svg" class="main-logo" alt="Logo" onerror="this.style.display='none'">
+        <img src="https://guarantor-test.ru/logo.svg" style="height:24px;">
     </div>
 
-    <div style="padding: 0 4px;">
-        <div class="balance-label">Баланс</div>
-        <div class="balance-val">0,00 ₽</div>
-        <div class="deposit-badge">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.93 13.33H4.4c-.4 0-.67.27-.67.67 0 .4.27.67.67.67h1.53c.4 0 .67-.27.67-.67 0-.4-.27-.67-.67-.67zM12.4 1.33H3.6c-1.27 0-2.27 1-2.27 2.27v6.6c0 1.27 1 1.27 2.27 2.27h8.8c1.27 0 2.27-1 2.27-2.27V3.6c0-1.27-1-2.27-2.27-2.27zM5.93 4.67c-1.2 0-2.2 1-2.2 2.27s1 2.2 2.2 2.2 2.2-1 2.2-2.2-1-2.27-2.2-2.27zm0 3.13c-.47 0-.87-.4-.87-.87s.4-.87.87-.87c.47 0 .87.4.87.87s-.4.87-.87.87zm5.2 0h-.4c-.4 0-.67-.27-.67-.67v-5.67c0-.4.27-.67.67-.67h.4c.4 0 .67.27.67.67v5.67c0 .4-.27.67-.67.67z" fill="#00BA78"/></svg>
-            Депозит: 0 ₽
-        </div>
-    </div>
+    <div class="balance-label" style="color:#888; margin-bottom:5px;">Баланс</div>
+    <div class="balance-val" id="main-balance">0,00 ₽</div>
+    <div class="deposit-badge">Депозит: 0 ₽</div>
 
     <div class="actions-grid">
-        <!-- КНОПКА ПОПОЛНИТЬ С ТЕХ РАБОТАМИ -->
-        <div class="act-card gradient-stroke gradient-1" onclick="showTechWork()">
-            <svg width="24" height="24" viewBox="0 0 25 24" fill="none" class="act-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 1C6.42 1 1.5 5.92 1.5 12s4.92 11 11 11 11-4.92 11-11S18.58 1 12.5 1zm.85 7.62c0-.22-.09-.44-.25-.6-.16-.16-.38-.25-.6-.25s-.44.09-.6.25c-.16.16-.25.38-.25.6v2.54H9.12c-.22 0-.44.09-.6.25-.16.16-.25.38-.25.6s.09.44.25.6c.16.16.38.25.6.25h2.53v2.54c0 .22.09.44.25.6.16.16.38.25.6.25s.44-.09.6-.25c.16-.16.25-.38.25-.6v-2.54h2.54c.22 0 .44-.09.6-.25.16-.16.25-.38.25-.6s-.09-.44-.25-.6c-.16-.16-.38-.25-.6-.25h-2.54V8.62z" fill="#00BA78"/></svg>
-            <span class="act-label" style="color: #363636;">Пополнить</span>
+        <div class="act-card" onclick="tg.showAlert('Технические работы')">
+            <i class="fa-solid fa-circle-plus" style="color:var(--primary); font-size:24px; margin-bottom:8px;"></i>
+            <span style="font-size:13px; color:#aaa;">Пополнить</span>
         </div>
-        <div class="act-card gradient-stroke gradient-2" onclick="openWithdraw()">
-            <svg width="24" height="24" viewBox="0 0 25 24" fill="none" class="act-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 1C6.42 1 1.5 5.92 1.5 12s4.92 11 11 11 11-4.92 11-11S18.58 1 12.5 1zm-.6 15.83c.16.16.38.25.6.25s.44-.09.6-.25l3.38-3.38c.08-.08.15-.17.2-.27.04-.1.07-.21.07-.33 0-.11-.02-.22-.06-.33-.04-.1-.1-.2-.18-.28-.08-.08-.18-.14-.28-.18-.11-.04-.22-.06-.33-.06-.11 0-.22.02-.33.07-.1.04-.2.11-.28.19l-1.94 1.94V7.77c0-.22-.09-.44-.25-.6-.16-.16-.38-.25-.6-.25s-.44.09-.6.25c-.16.16-.25.38-.25.6v6.42l-1.94-1.94c-.16-.15-.37-.23-.59-.23-.22 0-.43.09-.58.24-.15.16-.24.37-.24.59 0 .22.08.43.23.59l3.38 3.39z" fill="#C7C7C7"/></svg>
-            <span class="act-label">Вывести</span>
+        <div class="act-card" onclick="openWithdraw()">
+            <i class="fa-solid fa-arrow-up-right-from-square" style="color:#888; font-size:24px; margin-bottom:8px;"></i>
+            <span style="font-size:13px; color:#aaa;">Вывести</span>
         </div>
     </div>
 
-    <div class="ad-banner">
-        <div style="display:flex; justify-content:center; align-items:center; gap:8px;">
-            <img src="https://guarantor-test.ru/lolzteam.svg" style="height:20px;" onerror="this.style.display='none'">
-        </div>
-        <div class="ad-text">Реклама/информация</div>
-    </div>
-
-    <button class="btn-primary" onclick="openM()">
-        <svg width="20" height="20" viewBox="0 0 21 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 4.38c0-.66.26-1.3.73-1.77.47-.47 1.1-.73 1.77-.73h2.5c.66 0 1.3.26 1.77.73.47.47.73 1.1.73 1.77v.17c.78.07 1.55.16 2.31.27 1.21.18 2.06 1.24 2.06 2.44v2.52c0 1.01-.61 1.96-1.61 2.3-2.1.7-4.3 1.05-6.51 1.05-2.28 0-4.47-.37-6.51-1.05-1-.34-1.61-1.29-1.61-2.3V7.25c0-1.2.85-2.25 2.06-2.43.77-.11 1.54-.2 2.31-.28v-.17zm6.25 0v.07c-1.66-.1-3.33-.1-5 .01V4.38c0-.33.13-.65.37-.88.23-.24.55-.37.88-.37h2.5c.33 0 .65.13.88.37.24.23.37.55.37.88zM10.5 11.25c.17 0 .33-.07.44-.18.12-.12.18-.28.18-.45 0-.16-.06-.32-.18-.44-.11-.12-.27-.18-.44-.18-.17 0-.33.06-.44.18-.12.12-.18.28-.18.44 0 .17.06.33.18.45.11.11.27.18.44.18z" fill="white"/><path d="M3 15.33V13c.19.1.39.19.6.26 2.22.74 4.55 1.12 6.9 1.11 2.41 0 4.73-.39 6.9-1.11.21-.07.41-.16.6-.26v2.33c0 1.21-.87 2.27-2.1 2.44-1.77.23-3.57.35-5.4.35-1.8 0-3.6-.12-5.4-.36-1.23-.16-2.1-1.22-2.1-2.43z" fill="white"/></svg>
-        Начать сделку
-    </button>
+    <button class="btn-primary" style="margin-top:24px;" onclick="openM()">Начать сделку</button>
 </div>
 
-<!-- DEALS -->
+<!-- DEALS PAGE -->
 <div id="deals" class="page">
-    <h2 style="margin-bottom: 20px;">Мои сделки</h2>
-    <div id="deals-list">
-        <div style="text-align: center; color: #555; margin-top: 100px;">
-            <i class="fa-regular fa-folder-open" style="font-size: 40px; margin-bottom: 10px;"></i>
-            <div>Нет активных сделок</div>
-        </div>
-    </div>
+    <h2>Мои сделки</h2>
+    <div id="deals-list"></div>
 </div>
 
-<!-- PROFILE -->
+<!-- PROFILE PAGE -->
 <div id="profile" class="page">
-    <div style="text-align: center; margin-top: 40px;">
-        <div class="avatar" style="width: 100px; height: 100px; font-size: 32px; margin: 0 auto 16px; border: 4px solid #1a1a1a;">U</div>
-        <h2 class="u-name" style="font-size: 24px;">Пользователь</h2>
-        <div class="u-tag">@username</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px;">
-        <div style="background: #111; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--border);">
-            <div id="stat-deals" style="font-size: 24px; font-weight: 700; color: var(--primary);">0</div>
-            <div style="font-size: 12px; color: #666;">Сделок</div>
-        </div>
-        <div style="background: #111; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--border);">
-            <div id="stat-turnover" style="font-size: 20px; font-weight: 700; color: #fff;">0 ₽</div>
-            <div style="font-size: 12px; color: #666;">Оборот</div>
-        </div>
+    <div style="text-align:center; margin-top:30px;">
+        <div class="avatar" id="prof-avatar" style="width:80px; height:80px; margin:0 auto 15px; font-size:24px;">U</div>
+        <h3 id="prof-name">User</h3>
+        <div id="prof-tag" style="color:#666">@username</div>
     </div>
 </div>
 
-<!-- BUYER -->
+<!-- BUYER PAGE -->
 <div id="buyer" class="page">
-    <h2 style="text-align: center; margin-bottom: 30px;">Покупка</h2>
-    <div id="buyer-items" style="display:grid; gap:10px; margin-bottom:20px;"></div>
-    <div style="background: #111; border-radius: 20px; padding: 24px; border: 1px solid var(--border); text-align: center;">
-        <div style="font-size: 12px; color: #888; text-transform: uppercase;">К оплате</div>
-        <div style="font-size: 36px; font-weight: 800; color: #fff; margin-top: 8px;" id="b-price">0 ₽</div>
+    <h2 style="text-align:center">Покупка</h2>
+    <div id="buyer-items"></div>
+    <div style="background:#111; padding:20px; border-radius:15px; text-align:center; margin-top:20px; border:1px solid var(--border)">
+        <div style="color:#888">К оплате</div>
+        <div id="b-price" style="font-size:32px; font-weight:700">0 ₽</div>
     </div>
-    <button class="btn-primary" onclick="pay()" style="margin-top: 20px;">Оплатить</button>
+    <button class="btn-primary" style="margin-top:20px" onclick="pay()">Оплатить безопасно</button>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <div class="navbar">
-    <div class="nav-item active" onclick="nav('home', this)">
-        <svg viewBox="0 0 21 20"><path d="M10.23 3.2c.11-.12.27-.18.44-.18s.33.06.44.18l7.24 7.24c.06.06.13.1.2.14.08.03.16.05.25.05.08 0 .16-.02.24-.05.07-.03.14-.08.2-.14.06-.06.1-.13.14-.2.03-.08.05-.16.04-.25a.55.55 0 0 0-.05-.24.6.6 0 0 0-.14-.2L11.99 2.32a1.86 1.86 0 0 0-1.33-.4 1.86 1.86 0 0 0-1.32.4L2.1 9.56c-.06.06-.1.13-.14.2-.03.08-.05.16-.05.25 0 .08.02.16.05.24.03.07.08.14.14.2.06.06.13.1.2.14.08.03.16.05.25.05.08 0 .16-.02.24-.05.07-.03.14-.08.2-.14L10.23 3.2z"/></svg>
-        <span>Главная</span>
-    </div>
-    <div class="nav-item" onclick="nav('deals', this)">
-        <svg viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.25 4.38c0-.66.26-1.3.73-1.77.47-.47 1.1-.73 1.77-.73h2.5c.66 0 1.3.26 1.77.73.47.47.73 1.1.73 1.77v.17c.78.07 1.55.16 2.31.27 1.21.18 2.06 1.24 2.06 2.44v2.52c0 1.01-.61 1.96-1.61 2.3-2.1.7-4.3 1.05-6.51 1.05-2.28 0-4.47-.37-6.51-1.05-1-.34-1.61-1.29-1.61-2.3V7.25c0-1.2.85-2.25 2.06-2.43.77-.11 1.54-.2 2.31-.28v-.17zm6.25 0v.07c-1.66-.1-3.33-.1-5 .01V4.38c0-.33.13-.65.37-.88.23-.24.55-.37.88-.37h2.5c.33 0 .65.13.88.37.24.23.37.55.37.88zM10 11.25c.17 0 .33-.07.44-.18.12-.12.18-.28.18-.45 0-.16-.06-.32-.18-.44-.11-.12-.27-.18-.44-.18-.17 0-.33.06-.44.18-.12.12-.18.28-.18.44 0 .17.06.33.18.45.11.11.27.18.44.18z"/><path d="M2.5 15.33V13c.19.1.39.19.6.26 2.22.74 4.55 1.12 6.9 1.11 2.41 0 4.73-.39 6.9-1.11.21-.07.41-.16.6-.26v2.33c0 1.21-.87 2.27-2.1 2.44-1.77.23-3.57.35-5.4.35-1.8 0-3.6-.12-5.4-.36-1.23-.16-2.1-1.22-2.1-2.43z"/></svg>
-        <span>Сделки</span>
-    </div>
-    <div class="nav-item" onclick="nav('profile', this)">
-        <svg viewBox="0 0 21 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.99 16c.82-.77 1.47-1.7 1.92-2.73.45-1.03.68-2.15.67-3.27 0-4.56-3.7-8.25-8.25-8.25S2.08 5.44 2.08 10c0 1.13.23 2.24.68 3.27.45 1.03 1.1 1.96 1.92 2.73 1.53 1.45 3.55 2.25 5.65 2.25 2.1 0 4.13-.8 5.66-2.25zM5.38 14.92c.6-.74 1.35-1.34 2.2-1.75.86-.42 1.8-.63 2.75-.63.95 0 1.89.21 2.75.63.86.41 1.61 1.01 2.2 1.75-.65.66-1.42 1.18-2.27 1.53-.85.35-1.76.53-2.68.53-.92 0-1.83-.18-2.68-.53-.85-.35-1.62-.87-2.27-1.53zm8.13-7.46c0 .84-.33 1.65-.93 2.24-.6.6-1.4.93-2.25.93-.84 0-1.65-.33-2.24-.93-.6-.6-.93-1.4-.93-2.24 0-.85.33-1.65.93-2.25.6-.6 1.4-.93 2.24-.93.85 0 1.65.33 2.25.93.6.6.93 1.4.93 2.25z"/></svg>
-        <span>Профиль</span>
-    </div>
+    <div class="nav-item active" onclick="nav('home', this)"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></div>
+    <div class="nav-item" onclick="nav('deals', this)"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-8-2h4v2h-4V4z"/></svg><span>Сделки</span></div>
+    <div class="nav-item" onclick="nav('profile', this)"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Профиль</span></div>
 </div>
 
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
+<!-- CREATE DEAL SHEET -->
 <div class="sheet" id="sheet">
-    <h3 style="text-align:center; margin-bottom:20px; font-weight:800;">Новая сделка</h3>
+    <h3 style="text-align:center; margin-bottom:15px;">Создать сделку</h3>
     <div id="items-list"></div>
-    <div style="display: flex; gap: 8px;">
-        <input type="text" class="inp" id="lnk" placeholder="Ссылка на товар (t.me/nft/...)">
-        <button class="add-btn" onclick="addItem()">+</button>
+    <div style="display:flex; gap:10px;">
+        <input type="text" class="inp" id="lnk" placeholder="Ссылка (t.me/nft/...)">
+        <button onclick="addItem()" style="height:50px; width:50px; background:#111; border:1px solid var(--border); border-radius:12px; color:var(--primary); font-size:20px;">+</button>
     </div>
+    <div id="parse-status" style="font-size:12px; color:#888; margin-top:-8px; margin-bottom:10px;"></div>
     <input type="number" class="inp" id="prc" placeholder="Сумма сделки (RUB)">
-    <div id="res" style="display:none; background: rgba(0,186,120,0.1); padding: 16px; border-radius: 12px; color: var(--primary); margin-bottom: 16px; word-break: break-all; border: 1px dashed var(--primary); font-size: 13px;"></div>
-    <div id="gen-controls">
-        <button class="btn-primary" id="cBtn" onclick="gen()">Создать ссылку</button>
+    
+    <div id="res-box" style="display:none; background:#000; padding:15px; border-radius:12px; border:1px dashed var(--primary); color:var(--primary); font-size:12px; margin-bottom:15px; word-break:break-all;"></div>
+    
+    <div id="controls-gen">
+        <button class="btn-primary" onclick="gen()">Создать ссылку</button>
     </div>
-    <div id="final-controls" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; display:none;">
+    <div id="controls-final" style="display:none; gap:10px;">
         <button class="btn-primary" id="copyBtn">Копировать</button>
-        <button class="btn-primary" id="shareBtn" style="background: #333;">Поделиться</button>
-    </div>
-</div>
-
-<div class="sheet" id="withdraw-sheet">
-    <div id="wd-list">
-        <h3 style="text-align:center; margin-bottom:20px;">Вывести средства</h3>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('USDT')">USDT (TRC20)</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('Card RU')">Карта (RU)</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('SBP')">СБП</div>
-        <div style="background:#111; padding:16px; border-radius:12px; margin-bottom:10px; border:1px solid var(--border); cursor:pointer;" onclick="selectMethod('TON')">TON Wallet</div>
-    </div>
-    <div id="wd-form" style="display: none;">
-        <h3 id="wd-title" style="text-align:center; margin-bottom:20px;">Вывод</h3>
-        <input type="text" class="inp" id="wd-req" placeholder="Реквизиты">
-        <input type="number" class="inp" id="wd-sum" placeholder="Сумма">
-        <button class="btn-primary" onclick="createWithdrawal()">Создать заявку</button>
-        <button class="inp" onclick="backToWList()" style="margin-top: 10px; text-align:center; background:transparent; border:none; color:#666; cursor:pointer;">Назад</button>
     </div>
 </div>
 
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    tg.setHeaderColor('#000000');
-    tg.setBackgroundColor('#050505');
 
-    // API URL
+    // ❗ ЕСЛИ БЕКЕНД НА ДРУГОМ ДОМЕНЕ, ВПИШИ ССЫЛКУ ТУТ, например: "https://my-bot.onrender.com"
     const API_URL = "https://giftlolz-a5z8.onrender.com"; 
-    
-    // SAFE USER MOCK (Для тестов в браузере)
-    const user = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : {
-        id: 123456789,
-        first_name: "Browser",
-        username: "user",
-        photo_url: ""
-    };
 
-    window.onload = function() {
-        setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 1000);
-    };
+    const user = tg.initDataUnsafe.user || { id: 123, first_name: "Local", username: "test" };
 
-    let sellerId = null, currentDealId = null, currentItems = [], selectedWithdrawMethod = '';
-
-    if(user) {
-        document.querySelectorAll('.u-name').forEach(e => e.innerText = user.first_name);
-        document.querySelectorAll('.u-tag').forEach(e => e.innerText = '@' + (user.username || 'anon'));
+    window.onload = async () => {
+        // 1. Отображение данных юзера
+        document.getElementById('user-name').innerText = user.first_name;
+        document.getElementById('user-tag').innerText = "@" + (user.username || "anon");
+        document.getElementById('prof-name').innerText = user.first_name;
+        document.getElementById('prof-tag').innerText = "@" + (user.username || "anon");
         if(user.photo_url) {
-            document.querySelectorAll('.avatar').forEach(e => { e.innerText = ''; e.style.backgroundImage = `url(${user.photo_url})`; });
-        } else {
-            document.querySelectorAll('.avatar').forEach(e => e.innerText = user.first_name.charAt(0));
+            document.getElementById('user-avatar').style.backgroundImage = `url(${user.photo_url})`;
+            document.getElementById('user-avatar').innerText = "";
         }
-        
-        // Отправка лога входа (Backend Logger)
-        try { fetch(`${API_URL}/api/log_login`, { method:'POST', body:JSON.stringify({user_id: user.id, username: user.username}) }).catch(()=>{}); } catch(e){}
-        
-        fetchData(user.id);
+
+        // 2. ОТПРАВКА ЛОГА ВХОДА НА БЕКЕНД
+        try {
+            await fetch(`${API_URL}/api/log_login`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ user_id: user.id, username: user.username })
+            });
+        } catch(e) { console.error("Login log failed", e); }
+
+        // 3. Загрузка данных юзера
+        loadUserData();
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+    };
+
+    async function loadUserData() {
+        try {
+            const r = await fetch(`${API_URL}/api/user?user_id=${user.id}`);
+            const d = await r.json();
+            document.getElementById('main-balance').innerText = d.balance.toLocaleString() + " ₽";
+        } catch(e){}
     }
 
-    // НОВАЯ ФУНКЦИЯ ТЕХ РАБОТ
-    function showTechWork() {
-        tg.showAlert("Временные технические работы. Попробуйте позже.");
+    // ПАРСЕР (FRONTEND ЧАСТЬ)
+    async function addItem() {
+        const input = document.getElementById('lnk');
+        const link = input.value.trim();
+        const status = document.getElementById('parse-status');
+        if(!link) return;
+
+        status.innerText = "Считывание данных...";
+        try {
+            const response = await fetch(`${API_URL}/api/parse_nft`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ link: link })
+            });
+            const data = await response.json();
+            
+            if(data.status === 'ok') {
+                const list = document.getElementById('items-list');
+                list.innerHTML += `
+                    <div class="mini-card">
+                        <img src="${data.image}" class="mini-img">
+                        <div>
+                            <div style="font-weight:700; font-size:14px;">${data.title}</div>
+                            <div style="font-size:11px; color:#666;">${data.desc}</div>
+                        </div>
+                    </div>
+                `;
+                currentItems.push({ title: data.title, image: data.image, link: link });
+                input.value = "";
+                status.innerText = "";
+            } else {
+                status.innerText = "Ошибка парсинга";
+            }
+        } catch(e) {
+            status.innerText = "Сервер недоступен";
+        }
+    }
+
+    let currentItems = [];
+
+    async function gen() {
+        const amount = document.getElementById('prc').value;
+        if(!amount || currentItems.length === 0) return tg.showAlert("Добавьте товар и сумму");
+
+        try {
+            const r = await fetch(`${API_URL}/api/create_deal`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ seller_id: user.id, amount: amount, items: currentItems })
+            });
+            const d = await r.json();
+            const url = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(amount + '|M|' + user.id + '|' + d.deal_id)}`;
+            
+            document.getElementById('res-box').style.display = "block";
+            document.getElementById('res-box').innerText = url;
+            document.getElementById('controls-gen').style.display = "none";
+            document.getElementById('controls-final').style.display = "flex";
+            document.getElementById('copyBtn').onclick = () => {
+                navigator.clipboard.writeText(url);
+                tg.showAlert("Ссылка скопирована!");
+                closeAll();
+            };
+        } catch(e){ tg.showAlert("Ошибка сервера"); }
     }
 
     function nav(id, el) {
-        document.querySelectorAll('.page').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        if(el) {
-            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
-            el.classList.add('active');
-        }
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
     }
 
-    function closeAll() {
-        document.getElementById('overlay').classList.remove('vis');
-        document.querySelectorAll('.sheet').forEach(s => s.classList.remove('vis'));
-        document.getElementById('res').style.display='none'; document.getElementById('items-list').innerHTML=''; currentItems=[]; 
-        document.getElementById('gen-controls').style.display='block'; document.getElementById('final-controls').style.display='none';
-        backToWList();
-    }
     function openM() { document.getElementById('overlay').classList.add('vis'); document.getElementById('sheet').classList.add('vis'); }
-    function openWithdraw() { document.getElementById('overlay').classList.add('vis'); document.getElementById('withdraw-sheet').classList.add('vis'); }
-
-    async function fetchData(uid) {
-        try {
-            const r = await fetch(`${API_URL}/api/user?user_id=${uid}`);
-            if(!r.ok) throw new Error();
-            const d = await r.json();
-            document.querySelector('.balance-val').innerText = d.balance.toLocaleString() + ' ₽';
-            document.getElementById('stat-deals').innerText = d.deals_stat;
-            document.getElementById('stat-turnover').innerText = d.turnover.toLocaleString() + ' ₽';
-            const list = document.getElementById('deals-list');
-            if(d.active_deals && d.active_deals.length > 0) {
-                list.innerHTML = '';
-                d.active_deals.forEach(deal => {
-                    let st = '<span style="color:#ffc800; font-size:12px; font-weight:700;">Ждет оплаты</span>';
-                    if(deal.status === 'paid') st = '<span style="color:#00BA78; font-size:12px; font-weight:700;">Оплачено</span>';
-                    list.innerHTML += `<div style="background:#111; padding:16px; border-radius:12px; border:1px solid var(--border); margin-bottom:10px;">
-                        <div style="display:flex; justify-content:space-between;"><b>${deal.amount} ₽</b>${st}</div>
-                        <div style="color:#666; font-size:13px; margin-top:5px;">${deal.desc}</div>
-                    </div>`;
-                });
-            }
-        } catch(e){
-            // Mock для тестов если API лежит
-            document.querySelector('.balance-val').innerText = "0,00 ₽";
-        }
-    }
-
-    async function addItem() {
-        const lnk = document.getElementById('lnk').value; if(!lnk) return;
-        document.getElementById('items-list').innerHTML += `<div class="mini-card"><div class="mini-img"></div><div><b>Item</b><br><small style="color:#666">${lnk.substring(0,15)}...</small></div><button class="del-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>`;
-        currentItems.push({link:lnk, title:'Item'}); document.getElementById('lnk').value='';
-    }
-
-    async function gen() {
-        const pr = document.getElementById('prc').value; if(!currentItems.length || !pr) return tg.showAlert("Заполните поля");
-        const btn = document.getElementById('cBtn'); const old = btn.innerText; btn.innerText='Создание...';
-        
-        try {
-            let link = "";
-            try {
-                const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body:JSON.stringify({seller_id:user.id, amount:pr, items:currentItems}) });
-                if(!r.ok) throw new Error();
-                const d = await r.json();
-                link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(pr+'|MULTI|'+user.id+'|'+d.deal_id)}`;
-            } catch(e) {
-                link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(pr+'|MULTI|'+user.id+'|MOCK_ID')}`;
-            }
-
-            document.getElementById('res').style.display='block'; document.getElementById('res').innerHTML=link;
-            document.getElementById('gen-controls').style.display='none'; document.getElementById('final-controls').style.display='grid';
-            
-            document.getElementById('copyBtn').onclick = () => { navigator.clipboard.writeText(link); tg.showAlert('Скопировано'); closeAll(); };
-            document.getElementById('shareBtn').onclick = () => { tg.openTelegramLink('https://t.me/share/url?url='+link); };
-            btn.innerText = old;
-        } catch(e){ btn.innerText='Ошибка'; }
-    }
-
-    function selectMethod(m) { selectedWithdrawMethod=m; document.getElementById('wd-list').style.display='none'; document.getElementById('wd-form').style.display='block'; document.getElementById('wd-title').innerText=m; }
-    function backToWList() { document.getElementById('wd-list').style.display='block'; document.getElementById('wd-form').style.display='none'; }
-    async function createWithdrawal() {
-        const r=document.getElementById('wd-req').value, s=document.getElementById('wd-sum').value;
-        if(!r||!s) return tg.showAlert("Заполните все поля");
-        try { await fetch(`${API_URL}/api/withdraw`, { method:'POST', body:JSON.stringify({user_id:user.id, method:selectedWithdrawMethod, requisites:r, amount:s}) }); } catch(e){}
-        tg.showAlert("Заявка создана"); closeAll();
-    }
-    
-    function backToMenu() { location.reload(); }
+    function closeAll() { document.getElementById('overlay').classList.remove('vis'); document.querySelectorAll('.sheet').forEach(s => s.classList.remove('vis')); }
+    function openWithdraw() { tg.showAlert("Вывод временно недоступен"); }
 </script>
 </body>
 </html>
