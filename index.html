@@ -31,7 +31,6 @@
         }
         * { box-sizing: border-box; user-select: none; outline: none; }
         
-        /* Кнопки */
         .btn-primary { width: 100%; height: 56px; background: linear-gradient(120deg, #1c6946, #0e4029 50%, #1c6946); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .btn-primary:active { transform: scale(0.98); opacity: 0.9; }
 
@@ -39,32 +38,29 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Шапка */
         .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .user-chip { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.04); padding: 6px 16px 6px 6px; border-radius: 24px; }
         .avatar { width: 38px; height: 38px; border-radius: 50%; background: #333; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
         
-        /* Баланс */
         .balance-val { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 10px; }
         .deposit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 186, 120, 0.08); padding: 4px 12px; border-radius: 20px; color: var(--primary); font-size: 13px; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
         .act-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; cursor: pointer; height: 90px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
 
-        /* NAVBAR LIQUID GLASS (Свечение) */
         .navbar { position: fixed; bottom: 24px; left: 24px; right: 24px; height: 74px; background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); border-radius: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 6px; z-index: 100; }
         .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #777; font-size: 11px; cursor: pointer; border-radius: 18px; transition: 0.3s; }
         .nav-item svg { width: 22px; height: 22px; fill: #777; transition: 0.3s; }
         .nav-item.active { color: #fff; background: rgba(255,255,255,0.03); }
-        .nav-item.active svg { fill: var(--primary); filter: drop-shadow(0 0 10px var(--primary)) drop-shadow(0 0 20px var(--primary)); }
+        .nav-item.active svg { fill: var(--primary); filter: drop-shadow(0 0 10px var(--primary)); }
         
-        /* Списки и формы */
         .mini-card { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 14px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); margin-bottom: 8px; }
         .mini-img { width: 45px; height: 45px; border-radius: 8px; background: #222; object-fit: cover; }
+        
         .sheet { position: fixed; bottom: 0; left: 0; right: 0; background: #141414; border-radius: 24px 24px 0 0; padding: 24px; z-index: 201; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border-top: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
         .sheet.vis { transform: translateY(0); }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
-        .overlay.vis { opacity: 1; pointer-events: auto; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 200; opacity: 1; display:none; }
+        .overlay.vis { display:block; }
         .inp { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
 
         #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
@@ -76,10 +72,8 @@
 
 <div id="loader">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00BA78" stroke-width="2" style="animation: spin 1s infinite linear;"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
-    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
 </div>
 
-<!-- SUCCESS SCREEN -->
 <div id="success" class="success-scr">
     <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(0,186,120,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(0,186,120,0.2);">
         <i class="fa-solid fa-check" style="font-size: 32px; color: var(--primary);"></i>
@@ -89,15 +83,12 @@
     <button class="btn-primary" onclick="window.location.reload()">В меню</button>
 </div>
 
-<!-- HOME PAGE -->
+<!-- HOME -->
 <div id="home" class="page active">
     <div class="header-row">
         <div class="user-chip">
             <div class="avatar" id="user-avatar">U</div>
-            <div class="u-info">
-                <div class="u-name" id="user-name">...</div>
-                <div class="u-tag" id="user-tag">@username</div>
-            </div>
+            <div class="u-info"><div class="u-name" id="user-name">...</div><div class="u-tag" id="user-tag">@username</div></div>
         </div>
         <img src="https://guarantor-test.ru/logo.svg" style="height:24px;">
     </div>
@@ -111,32 +102,29 @@
     <button class="btn-primary" style="margin-top:24px;" onclick="openM()">Начать сделку</button>
 </div>
 
-<!-- DEALS PAGE -->
+<!-- DEALS -->
 <div id="deals" class="page">
     <h2 style="margin-bottom:20px;">Мои сделки</h2>
     <div id="deals-list"></div>
 </div>
 
-<!-- PROFILE PAGE -->
+<!-- PROFILE -->
 <div id="profile" class="page">
     <div style="text-align:center; margin-top:30px;">
         <div class="avatar" id="prof-avatar" style="width:80px; height:80px; margin:0 auto 15px; font-size:24px;">U</div>
-        <h3 id="prof-name">...</h3>
-        <div id="prof-tag" style="color:#666; margin-bottom:30px;">@username</div>
+        <h3 id="prof-name">...</h3><div id="prof-tag" style="color:#666">@username</div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px;">
         <div style="background:#111; padding:20px; border-radius:16px; text-align:center; border:1px solid var(--border);">
-            <div id="stat-deals" style="font-size:24px; font-weight:700; color:var(--primary);">0</div>
-            <div style="font-size:12px; color:#666;">Сделок</div>
+            <div id="stat-deals" style="font-size:24px; font-weight:700; color:var(--primary);">0</div><div style="font-size:12px; color:#666;">Сделок</div>
         </div>
         <div style="background:#111; padding:20px; border-radius:16px; text-align:center; border:1px solid var(--border);">
-            <div id="stat-turnover" style="font-size:20px; font-weight:700; color:#fff;">0 ₽</div>
-            <div style="font-size:12px; color:#666;">Оборот</div>
+            <div id="stat-turnover" style="font-size:20px; font-weight:700; color:#fff;">0 ₽</div><div style="font-size:12px; color:#666;">Оборот</div>
         </div>
     </div>
 </div>
 
-<!-- BUYER PAGE -->
+<!-- BUYER -->
 <div id="buyer" class="page">
     <h2 style="text-align:center; margin-bottom:20px;">Покупка</h2>
     <div id="buyer-items" style="margin-bottom:20px;"></div>
@@ -172,12 +160,11 @@
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    const API_URL = "https://giftlolz-a5z8.onrender.com"; // Впиши URL своего бота на Render, если GitHub Pages
+    const API_URL = "https://giftlolz-a5z8.onrender.com"; 
     const user = tg.initDataUnsafe.user || { id: 12345, first_name: "User", username: "test" };
 
     let curSeller = null, curDeal = null, curItems = [];
 
-    // ОБНОВЛЕНИЕ ДАННЫХ В РЕАЛЬНОМ ВРЕМЕНИ
     async function updateData() {
         try {
             const r = await fetch(`${API_URL}/api/user?user_id=${user.id}`);
@@ -190,8 +177,20 @@
             if(d.active_deals && d.active_deals.length > 0) {
                 list.innerHTML = d.active_deals.map(deal => {
                     let st = `<span style="color:#ffc800; font-size:12px; font-weight:700;">Ждет оплаты</span>`;
-                    if(deal.status === 'paid') st = `<span style="color:#00BA78; font-size:12px; font-weight:700;">Оплачено</span>`;
-                    return `<div class="mini-card"><div style="flex:1"><b>${deal.amount} ₽</b><br><small style="color:#666">${deal.desc}</small></div>${st}</div>`;
+                    let instr = "";
+                    if(deal.status === 'paid') {
+                        st = `<span style="color:#00BA78; font-size:12px; font-weight:700;">Оплачено</span>`;
+                        instr = `<div style="background:rgba(0,186,120,0.08); border:1px dashed var(--primary); padding:10px; border-radius:10px; margin-top:10px; font-size:12px; color:#eee;">
+                            🎁 Передайте подарок боту <a href="https://t.me/giftlolz" style="color:var(--primary); font-weight:800; text-decoration:none;">@giftlolz</a> для завершения сделки.
+                        </div>`;
+                    }
+                    return `<div class="mini-card" style="display:block">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <b>${deal.amount} ₽</b>${st}
+                        </div>
+                        <div style="color:#666; font-size:12px; margin-top:4px;">${deal.desc}</div>
+                        ${instr}
+                    </div>`;
                 }).join('');
             } else {
                 list.innerHTML = `<div style="text-align:center; color:#444; margin-top:80px;"><i class="fa-regular fa-folder-open" style="font-size:40px; margin-bottom:10px;"></i><div>Сделок нет</div></div>`;
@@ -199,7 +198,6 @@
         } catch(e){}
     }
 
-    // ОБРАБОТКА ССЫЛКИ НА СДЕЛКУ (ИСПРАВЛЕНО)
     async function handleLink() {
         const param = tg.initDataUnsafe.start_param;
         if (param && param.startsWith('deal-')) {
@@ -207,19 +205,17 @@
                 const encoded = param.replace('deal-', '');
                 const decoded = atob(encoded).split('|');
                 curDeal = decoded[3]; curSeller = decoded[2];
-                
                 document.getElementById('main-nav').style.display = 'none';
                 nav('buyer');
-
                 const r = await fetch(`${API_URL}/api/get_deal?deal_id=${curDeal}`);
                 const data = await r.json();
                 if (data.status === 'ok') {
                     document.getElementById('b-price').innerText = data.amount.toLocaleString() + " ₽";
                     document.getElementById('buyer-items').innerHTML = data.items.map(i => `
-                        <div class="mini-card"><img src="${i.image}" class="mini-img"><div><b>${i.title}</b><br><small style="color:#666">Предмет</small></div></div>
+                        <div class="mini-card"><img src="${i.image}" class="mini-img"><div><b>${i.title}</b><br><small style="color:#666">NFT/Gift</small></div></div>
                     `).join('');
                 }
-            } catch (e) { tg.showAlert("Сделка не найдена"); }
+            } catch (e) { tg.showAlert("Ошибка загрузки сделки"); }
         }
     }
 
@@ -228,26 +224,17 @@
         document.getElementById('prof-name').innerText = user.first_name;
         document.getElementById('user-tag').innerText = "@" + (user.username || "anon");
         document.getElementById('prof-tag').innerText = "@" + (user.username || "anon");
-
-        if(user.photo_url) {
-            document.querySelectorAll('.avatar').forEach(a => { a.style.backgroundImage = `url(${user.photo_url})`; a.innerText = ""; });
-        }
-
+        if(user.photo_url) { document.querySelectorAll('.avatar').forEach(a => { a.style.backgroundImage = `url(${user.photo_url})`; a.innerText = ""; }); }
         fetch(`${API_URL}/api/log_login`, { method: 'POST', body: JSON.stringify({ user_id: user.id, username: user.username }) }).catch(()=>{});
-        
-        await updateData();
-        await handleLink();
+        await updateData(); await handleLink();
         document.getElementById('loader').classList.add('hidden');
-        setInterval(updateData, 5000); // Автообновление раз в 5 сек
+        setInterval(updateData, 5000);
     };
 
     function nav(id, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        if(el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-        }
+        if(el) { document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); el.classList.add('active'); }
         updateData();
     }
 
@@ -275,8 +262,7 @@
             const r = await fetch(`${API_URL}/api/create_deal`, { method:'POST', body: JSON.stringify({seller_id: user.id, amount, items: curItems}) });
             const d = await r.json();
             const link = `https://t.me/lolzguarantor_rubot/app?startapp=deal-${btoa(amount+'|MULTI|'+user.id+'|'+d.deal_id)}`;
-            document.getElementById('res-box').innerText = link;
-            document.getElementById('res-box').style.display = "block";
+            document.getElementById('res-box').innerText = link; document.getElementById('res-box').style.display = "block";
             btn.innerText = "Копировать";
             btn.onclick = () => { navigator.clipboard.writeText(link); tg.showAlert("Скопировано!"); closeAll(); };
         } catch(e) { btn.innerText = "Ошибка"; }
@@ -295,7 +281,13 @@
     }
 
     function openM() { document.getElementById('overlay').classList.add('vis'); document.getElementById('sheet').classList.add('vis'); }
-    function closeAll() { document.getElementById('overlay').classList.remove('vis'); document.querySelectorAll('.sheet').forEach(s => s.classList.remove('vis')); }
+    function closeAll() { 
+        document.getElementById('overlay').classList.remove('vis'); 
+        document.querySelectorAll('.sheet').forEach(s => s.classList.remove('vis')); 
+        document.getElementById('res-box').style.display = "none";
+        document.getElementById('cBtn').innerText = "Создать ссылку";
+        document.getElementById('cBtn').onclick = gen;
+    }
 </script>
 </body>
 </html>
